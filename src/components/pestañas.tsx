@@ -12,9 +12,14 @@ export default function SharedLayoutAnimation() {
   const [reportNumber, setReportNumber] = useState("");
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    if (storedEmail) {
-      setUserEmail(storedEmail);
+    if (typeof window !== "undefined") {
+      document
+        .querySelectorAll("[cz-shortcut-listen]")
+        .forEach((el) => el.removeAttribute("cz-shortcut-listen"));
+      const storedEmail = localStorage.getItem("userEmail");
+      if (storedEmail) {
+        setUserEmail(storedEmail);
+      }
     }
   }, []);
 

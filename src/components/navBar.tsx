@@ -10,6 +10,9 @@ export default function Navbar() {
   useEffect(() => {
     // Verificamos si hay un correo en el almacenamiento local
     if (typeof window !== "undefined") {
+      document
+      .querySelectorAll('[cz-shortcut-listen]')
+      .forEach((el) => el.removeAttribute('cz-shortcut-listen'));
       const userEmail = localStorage.getItem("userEmail");
       if (userEmail) {
         setIsLoggedIn(true);
