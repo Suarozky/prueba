@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+
 
 interface Slide {
   id: number;
@@ -88,7 +88,7 @@ const Slider: React.FC = () => {
             role="group"
             aria-label={`Slide ${slide.id} of ${slides.length}`}
           >
-            <Image
+            <img
               src={slide.imageSrc}
               alt={slide.alt || `Slide ${slide.id}`}
               className="w-full object-cover mx-auto select-none"
