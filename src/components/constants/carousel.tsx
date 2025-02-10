@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
 interface Slide {
   id: number;
   imageSrc: string;
@@ -10,9 +9,9 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  { id: 1, imageSrc: "/carousel/slice.svg", alt: "First slide" },
-  { id: 2, imageSrc: "/carousel/slice1.svg", alt: "Second slide" },
-  { id: 3, imageSrc: "/carousel/slice.svg", alt: "Third slide" },
+  { id: 1, imageSrc: "/carousel/Slice 2.png", alt: "First slide" },
+  { id: 2, imageSrc: "/carousel/Slice 3.png", alt: "Second slide" },
+  { id: 3, imageSrc: "/carousel/Slice 2.png", alt: "Third slide" },
 ];
 
 const Slider: React.FC = () => {
@@ -30,7 +29,7 @@ const Slider: React.FC = () => {
   }, []);
 
   const startAutoPlay = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    stopAutoPlay(); // Clear any existing interval
     intervalRef.current = setInterval(nextSlide, 5000);
   }, [nextSlide]);
 
@@ -70,7 +69,7 @@ const Slider: React.FC = () => {
   return (
     <div
       ref={sliderRef}
-      className="relative w-full min-h-[18rem] md:min-h-[24rem] rounded-lg overflow-hidden mx-auto mt-12 md:mt-0"
+      className="relative w-full h-full overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       tabIndex={0}
@@ -84,16 +83,14 @@ const Slider: React.FC = () => {
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className="flex-shrink-0 w-full h-full"
+            className="flex-shrink-0 w-screen h-full"
             role="group"
             aria-label={`Slide ${slide.id} of ${slides.length}`}
           >
             <img
               src={slide.imageSrc}
               alt={slide.alt || `Slide ${slide.id}`}
-              className="w-full object-cover mx-auto select-none"
-              width={540}
-              height={480}
+              className="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
@@ -102,22 +99,22 @@ const Slider: React.FC = () => {
 
       <button
         onClick={prevSlide}
-        className="absolute inset-y-0 left-0 flex justify-center items-center w-10 h-full text-gray-800 hover:bg-gray-800/10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:hover:bg-white/10"
+        className="absolute inset-y-0 left-0 flex justify-center items-center w-16 h-full text-white bg-white/30 hover:bg-black/10 transition-colors focus:outline-none"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+        <ChevronLeft className="w-8 h-8" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute inset-y-0 right-0 flex justify-center items-center w-10 h-full text-gray-800 hover:bg-gray-800/10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:hover:bg-white/10"
+        className="absolute inset-y-0 right-0 flex justify-center items-center w-16 h-full text-white bg-white/30 hover:bg-black/10 transition-colors focus:outline-none"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+        <ChevronRight className="w-8 h-8" />
       </button>
 
       <div
-        className="absolute bottom-3 left-0 right-0 flex justify-center space-x-2"
+        className="absolute bottom-5 left-0 right-0 flex justify-center space-x-2"
         role="tablist"
         aria-label="Slider pagination"
       >
@@ -125,10 +122,10 @@ const Slider: React.FC = () => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-4 h-4 rounded-full transition-colors focus:outline-none ${
               currentSlide === index
                 ? "bg-pink-600"
-                : "bg-gray-400 hover:bg-gray-600"
+                : "bg-white/50 hover:bg-white/70"
             }`}
             role="tab"
             aria-selected={currentSlide === index}
