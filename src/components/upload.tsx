@@ -50,6 +50,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
     }
   };
   
+  
 
   const validateFile = (file: File): boolean => {
     setError("");
